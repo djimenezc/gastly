@@ -17,4 +17,16 @@ describe Gastly do
       FileUtils.rm Dir.glob("#{tmp}/*")
     end
   end
+
+  context '#capture stockcharts' do
+    it 'creates a screenshot stockcharts' do
+      tmp = 'spec/support/tmp'
+      url = 'http://stockcharts.com/h-sc/ui?s=$USHL5&p=D&yr=8&mn=0&dy=0&id=p27747499092'
+      5.times {|i|
+        path = "#{tmp}/output#{i}.png"
+        expect { Gastly.capture(url, path) }.to change { Dir.glob("#{tmp}/*").length }.by(1)
+      }
+      FileUtils.rm Dir.glob("#{tmp}/*")
+    end
+  end
 end
